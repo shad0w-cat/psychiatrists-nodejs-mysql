@@ -1,4 +1,3 @@
 node_modules/
 uploads/
-# Will remove comments later on
-# .env
+.env
