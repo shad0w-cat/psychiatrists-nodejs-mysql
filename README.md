@@ -31,7 +31,7 @@ Install this application via *git* and run it locally on your machine using *npm
 
 #### Pre-requisites: 
 * mysql, node and git installed
-* create an `.env` file in root directory of project and create [following](#env) environment variables accordingly
+* create an `.env` file in root directory of project and create [following](E#environment-variable) environment variables accordingly
 
 
 ```bash
@@ -40,7 +40,7 @@ Install this application via *git* and run it locally on your machine using *npm
   npm install
   npm start
 ```
-#### [Environment Variable](#env)
+#### Environment Variable
 
 To run this project, you will need to add the following environment variables to your .env file
 
