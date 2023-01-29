@@ -5,7 +5,7 @@ const multipart = require("multer");
 const multer = multipart({ dest: "uploads/" });
 const { patientRouter, doctorRouter, hospitalRouter, sampleDataRouter } = require("./routes/router")
 const { SERVER_PORT } = require('./config/default');
-
+const { initDB } = require("./services/db.service");
 const app = express();
 
 const corsOption = {
@@ -25,7 +25,10 @@ app.use("/hospital", hospitalRouter);
 // app.use("/doctor", doctorRouter);
 app.use("/sampleData", sampleDataRouter);
 
-app.listen(SERVER_PORT, () => {
+app.listen(SERVER_PORT, async () => {
     console.log("Web server running on port " + SERVER_PORT);
     console.log("http://localhost:" + SERVER_PORT);
+    console.log("Initializing Database...")
+    await initDB();
+    console.log("Database initialized!")
 });
