@@ -3,7 +3,7 @@ const { DB_HOST } = require("../config/default");
 const config = require('../config/default');
 
 // Initialize Database
-function initDB() {
+async function initDB() {
     let createHospitalTable = "create table if not exists hospital (id int auto_increment not null, `name` varchar(100) not null, primary key(id));";
 
     let createPatientTable = "create table if not exists patients (id int auto_increment not null, `name` varchar(20) not null, address text not null, email varchar(255) not null, phone varchar(13) not null, password varchar(15) not null, image text not null, primary key(id));";
@@ -12,20 +12,20 @@ function initDB() {
 
     let createDoctorPatientTable = "create table if not exists doctor_patient (id int auto_increment not null, doctorId int not null, patientId int not null, primary key (id), foreign key (doctorId) references psychiatrist(id), foreign key (patientId) references patients(id));";
 
-    query(createHospitalTable);
-    query(createDoctorTable);
-    query(createPatientTable);
-    query(createDoctorPatientTable);
+    await query(createHospitalTable);
+    await query(createDoctorTable);
+    await query(createPatientTable);
+    await query(createDoctorPatientTable);
 }
 
-function sampleData() {
-    query(`insert into hospital (name) values 
+async function sampleData() {
+    await query(`insert into hospital (name) values 
     ("Apollo Hospitals"), 
     ("Jawaharlal Nehru Medical College and Hospital"), 
     ("Indira Gandhi Institute of Medical Sciences (IGIMS)"), 
     ("AIIMS - All India Institute Of Medical Science");`);
 
-    query(`insert into patients (name, address, email, phone, password, image) values 
+    await query(`insert into patients (name, address, email, phone, password, image) values 
     ("Karan Bashu", "A Rajiv Chowk, New Delhi A", "karanbashu@gmail.com", "+919999999999", "Karanbashu123", "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmFuZG9tJTIwcGVvcGxlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"),
     ("Jakie Hills", "B Rajiv Chowk, New Delhi B", "jakiehills@gmail.com", "+919999999998", "Jakiehills234", "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cmFuZG9tJTIwcGVvcGxlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"),
     ("Justin Blue", "C Rajiv Chowk, New Delhi C", "justinblue@gmail.com", "+919999999997", "JustinBlue345", "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cmFuZG9tJTIwcGVvcGxlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"),
@@ -47,7 +47,7 @@ function sampleData() {
     ("Bily Whites", "S Rajiv Chowk, New Delhi S", "bilywhites@gmail.com", "+919999999888", "Bilywhites111", "https://images.unsplash.com/photo-1519058082700-08a0b56da9b4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjF8fHJhbmRvbSUyMHBlb3BsZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"),
     ("Tofu Player", "T Rajiv Chowk, New Delhi T", "tofuplayer@gmail.com", "+919999999777", "Tofuplayer000", "https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjJ8fHJhbmRvbSUyMHBlb3BsZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60");`);
 
-    query(`insert into psychiatrist (name, hospital) values 
+    await query(`insert into psychiatrist (name, hospital) values 
     ("M Mathur", 1),
     ("D Thakur", 1),
     ("S Pallavi", 1),
@@ -69,7 +69,7 @@ function sampleData() {
     ("Ralph T", 4),
     ("AB Panu", 4);`);
 
-    query(`insert into doctor_patient (doctorId, patientId) values 
+    await query(`insert into doctor_patient (doctorId, patientId) values 
     (1,1),
     (1,2),
     (1,3),
